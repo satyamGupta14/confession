@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confession App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Confession App</h1>
+    <form id="confessionForm">
+      <textarea id="userConfession" placeholder="Write your confession here..." required></textarea>
+      <input type="file" id="mediaInput" accept="image/*, video/*" required>
+      <button type="submit">Submit Confession</button>
+    </form>
+    <div id="confessionsList"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+app.post('/confessions', (req, res) => {
+  const { User_Confession, Image, Confessiotitle } = req.body;
+  console.log('User Confession:', User_Confession);
+  const sql = 'INSERT INTO main_confession (User_Confession, Image, Confessiotitle, created_at) VALUES (?, ?, ?, NOW())';
+  connection.query(sql, [User_Confession, Image, Confessiotitle], (err, result) => {
+    if (err) {
+      console.error('Error inserting confession into database: ', err);
+      res.status(500).json({ error: 'Failed to add confession' });
+      return;
+    }
+    console.log('Confession added successfully');
+    res.status(201).json({ message: 'Confession added successfully' });
+  });
+});
+
+app.get('/confessions', (req, res) => {
+  const sql = 'SELECT id, User_Confession, media FROM main_confession';
+  connection.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error fetching confessions from database: ', err);
+      res.status(500).json({ error: 'Failed to fetch confessions' });
+      return;
+    }
+    console.log('Confessions fetched successfully');
+
+    results.forEach(confession => {
+      if (confession.media) {
+        const imagePath = path.join(__dirname, 'images', `confession_${confession.id}.png`);
+        fs.writeFileSync(imagePath, confession.media);
+        confession.media = base64Img.base64Sync(imagePath);
+        fs.unlinkSync(imagePath);
+      }
+    });
+
+    res.status(200).json(results);
+  });
+});

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confession Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Additional CSS can be added here */
+    body {
+      background-color: #524d4d; /* Grey background */
+    }
+    .upload-icon {
+      padding: 10px;
+      cursor: pointer;
+    }
+    .add-confession-button {
+      position: fixed;
+      bottom: 20px; /* Adjust the distance from the bottom as needed */
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .input-group-prepend {
+      position: relative;
+    }
+    .input-group-prepend svg {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 10px;
+      color: #6c757d; /* Adjust color as needed */
+    }
+    .form-control {
+      padding-left: 40px; /* Adjust left padding to accommodate the icon */
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="container mt-5">
+      <div class="container">
+          <div class="mb-3">
+              <div class="input-group">
+                  <div class="input-group-prepend">
+                  </div>
+                  <input type="text" class="form-control" id="confessionTitle" placeholder="Confession Title...">
+              </div>
+          </div>
+          <div class="text-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-paperclip" viewBox="0 0 16 16">
+                  <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0z"/>
+              </svg>
+          </div>
+      </div>
+  </div>
+  
+    
+    <div class="mb-3">
+      <label for="confessionText" class="form-label">Confession Text:</label>
+      <textarea class="form-control" id="confessionText" rows="5" placeholder="Enter your confession..."></textarea>
+    </div>
+    <div class="dropdown">
+      <button class="btn btn-secondary w-100 fixed-bottom add-confession-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        POST
+        <i class="fas fa-caret-up"></i> <!-- Font Awesome caret-up icon -->
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <!-- Dropdown menu items here -->
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
